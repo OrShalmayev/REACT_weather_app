@@ -1,0 +1,41 @@
+.Home {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    // Home__results
+    &__results {
+        padding: 2rem 1rem;
+        display: flex;
+        flex-direction: column;
+        min-height: 50vh;
+        border: 2px solid #000;
+
+        // top
+        .top {
+            flex: 1;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        // middle
+        .middle {
+            flex: 3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        // bottom
+        .bottom {
+            flex: 6;
+            display: flex;
+            justify-content: space-evenly;
+            & > * {
+                padding: 1rem;
+                border: 1px solid #000;
+            }
+        }
+    }
+}

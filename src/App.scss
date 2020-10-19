@@ -1,0 +1,17 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  & > .Header {
+    flex-basis: 4rem;
+  }
+
+  & > .Main {
+    flex: 7;
+  }
+
+  & > .Footer {
+    flex-basis: 4rem;
+  }
+}
