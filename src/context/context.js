@@ -32,26 +32,47 @@ export const WeatherProvider = ({children})=> {
             }
         } else if (action.type === 'select_city') {
             if (action.data){
-                fetch( api.fiveDayDailyForecast(action.data.key) ).then( res=>res.json() )
-                .then( recievedData=> {
-                    console.log('recievedData', recievedData);
-                    return {
-                        ...weather,
-                        selectedCity: action.data.selectedCity ,
-                        selectedCityData: recievedData,
-                        searched: weather.searched.push(action.data.searched),
-                    }
+                console.log('context.js: recievedData', action);
+
+                // first check in local database if key exists
+                fetch(`${window.location.origin}/database/five_day_forecasts.json`)
+                .then( res => res.json())
+                .then(data => {
+                    console.log('context.js: five_day_forecasts.json',data);
                 })
+
+                // fetch( api.fiveDayDailyForecast(action.data.key) ).then( res=>res.json() )
+                // .then( recievedData => {
+                //     console.log('context.js: recievedData', recievedData);
+                //     dispatchWeather({
+                //         type: 'SET_CITY',
+                //         data: {
+                //             ...weather,
+                //             selectedCity: action.data.selectedCity ,
+                //             selectedCityData: recievedData,
+                //             searched: [action.data.searched],
+                //         }
+                //     });
+                // })
             } else {
                 console.log('data not provided at select_city');
             }
+        } else if ( action.type === 'SET_CITY' ){
+            return {
+                ...weather,
+                ...action.data
+            }
         }
-      }, {
+    }, {
             selectedCity: 'Tel Aviv',
             selectedCityData: {},
             favorite: [],
             searched: [],
     });//END weather reducer
+
+    React.useEffect(()=> {
+        console.log('context.js: weather', weather);
+    }, [weather])
 
     return (
         <WeatherContext.Provider value={{weather,dispatchWeather, ...api}}>

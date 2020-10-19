@@ -1,14 +1,21 @@
 import React from 'react';
 import './Home.scss';
 
+/**
+* Context
+**/
+import {WeatherContext} from '../../../../context/context';
+
 // Components
 import Search from './components/Search/Search';
+import SelectedCity from './components/SelectedCity/SelectedCity';
 
 const Home = () => {
+  const { weather } = React.useContext(WeatherContext);
 
-  React.useEffect(()=>{
-
-  }, [])
+  // React.useEffect(()=> {
+  //   // weather context changed
+  // }, [weather])
 
   return (
   <section className="Home">
@@ -16,32 +23,12 @@ const Home = () => {
     <Search />
     {/* CITY SEARCHED FOR */}
     <div className="Home__results">
-      {/* TOP */}
-      <div className="top">
-        <figure className="top__city">
-          <img src="" alt="City Image"/>
-          <figcaption className="city-name">
-            city name
-            <span className="city-celsious">38&#8451;</span>
-          </figcaption>
-        </figure>
-        <div className="top__actions">
-          <button>Add to Favorites</button>
-        </div>
-      </div>
-      {/* MIDDLE */}
-      <div className="middle">
-        <h2>Scattered clouds</h2>
-      </div>
-      {/* BOTTOM */}
-      <div className="bottom">
-        {/* BOX #1 */}
-        <div className="bottom__box">
-          <div className="bottom__box-day">Sun</div>
-          <div className="bottom__box-degree">38&#8451;</div>
-        </div>
-
-      </div>
+      {
+        ( weather && weather.selectedCity && Object.keys(weather.selectedCityData).length )
+          ? 
+          <SelectedCity weather={weather}></SelectedCity>
+          : <div>City Not Selected</div>
+      }
     </div>
   </section>
   );
