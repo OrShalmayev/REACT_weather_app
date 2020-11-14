@@ -33,9 +33,13 @@ const Search = () => {
   
   const filterData = (data, value) => data.filter( obj => obj.LocalizedName.toLowerCase().includes(value.toLowerCase()) ); 
   
+  /**
+   * Component life cycle
+   */
   React.useEffect( () => {
     // Effect when our state is changed
-  },[searchResult])
+    console.log('component: Search weather var changed', weather)
+  },[weather])
 
   function handleChange() { 
     if(s.current.value.length > 2){

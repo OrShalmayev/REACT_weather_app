@@ -1,6 +1,8 @@
 import React from 'react';
 import './Home.scss';
+import _ from 'underscore';
 
+import Loading from '../../../shared/Loading/Loading';
 /**
 * Context
 **/
@@ -13,10 +15,6 @@ import SelectedCity from './components/SelectedCity/SelectedCity';
 const Home = () => {
   const { weather } = React.useContext(WeatherContext);
 
-  // React.useEffect(()=> {
-  //   // weather context changed
-  // }, [weather])
-
   return (
   <section className="Home">
     {/* SEARCH */}
@@ -24,9 +22,9 @@ const Home = () => {
     {/* CITY SEARCHED FOR */}
     <div className="Home__results">
       {
-        ( weather && weather.selectedCity && Object.keys(weather.selectedCityData).length )
-          ? 
-          <SelectedCity weather={weather}></SelectedCity>
+        ( weather && weather.selectedCity && _.isEmpty(Object.keys(weather.selectedCityData)) === false )
+          ?
+          (weather.loading===true) ? <Loading /> :  <SelectedCity />
           : <div>City Not Selected</div>
       }
     </div>
